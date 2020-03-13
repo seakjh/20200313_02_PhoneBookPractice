@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class MainDrive {
@@ -88,6 +89,8 @@ public class MainDrive {
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 			
+			int phoneNumCount = 0;
+			
 			while (true) {
 				String line = br.readLine();
 				
@@ -95,8 +98,28 @@ public class MainDrive {
 					break;
 				}
 				
-				System.out.println(line);
+				phoneNumCount++;
+
+				String[] infoArr = line.split("/");
+				
+				String printName = infoArr[0];
+				
+				Calendar now = Calendar.getInstance();
+				int nowYear = now.get(Calendar.YEAR);
+				int birthYear = Integer.parseInt(infoArr[1]);
+				int nowAge = nowYear - birthYear + 1;
+				
+				String printPhoneNum = infoArr[2].replace("-", "");
+				
+				String userInfoStr = String.format("%s(%d세) : %s", printName, nowAge, printPhoneNum);
+				
+				System.out.println(userInfoStr);
+				
+				
+				
 			}
+			
+			System.out.println(String.format("총 저장된 번호 : %d개", phoneNumCount));
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
